@@ -1,0 +1,185 @@
+NAME
+    Config::Builder - A configuration builder
+
+SYNOPSIS
+      use Config::Builder;
+      my $cbuilder = Config::Builder->new();
+      $cbuilder->generate();
+
+DESCRIPTION
+    This module is a configuration builder. It takes in gramar and spec
+    files to create a single point of configuration for other applications.
+
+    It primarily uses YAML.
+
+GETTING STARTED
+    To get started, follow these steps:
+
+      ./bin/termbuilder.pl - build the term list
+      ./bin/targetbuilder.pl - build the target files
+      ./bin/buildconfig.pl - generate a config based on data/meta.yaml
+
+META
+    This module does have a set of defaults but doesn't really know what it
+    is doing without a meta file. In this case it uses meta.yaml to point it
+    in the right direction.
+
+    The meta.yaml file contains the following.
+
+    default_target
+        This value defines the default target to build if none is specified.
+
+    flags
+        This value is an array of flags that are applied to the config
+        builder.
+
+    output
+        This value is a hash containing output specs.
+
+        The key/values are:
+
+          file - The file to write to
+          type - The output type. Can be either 'template' or 'yaml'.
+          spec - The template file to use.
+
+    targets
+        An array of *.target.yaml files that can be used.
+
+    terms
+        This value points to the terms file to use.
+
+    version
+        This is not currently being used.
+
+    This is an example meta.yaml file.
+
+      --- 
+      default_target: dev
+      flags: 
+        - strict
+        - warnings
+      output: 
+        file: Config.pm
+        spec: perlmodule
+        type: template
+      targets: 
+        - dev.target.yaml
+        - common.target.yaml
+      terms: terms.yaml
+      version: 1.0
+
+TERMS
+    Terms are allowed variables. During the postproccessing phase it cycles
+    through the list of known and current variables to make sure that all
+    references match.
+
+    The strict and warnings flags define if the unkown config directives
+    will cause warnings or be pruned.
+
+    This is an example term.yaml file.
+
+      --- 
+      terms: 
+        AboutStyles: 
+          type: HASH
+        AcceptRichTextMail: 
+          default: 0
+          type: SCALAR
+
+    Note that there are 4 distinct types: SCALAR, ARRAY, HASH and HASHARRAY.
+    Only scalars can have default values.
+
+TARGETS
+    Targets are sections of config data that are parses and processed. They
+    are identified by name and contain actual variables and variable values.
+
+    Targets can also contain rules.
+
+    This is an example target.yaml file.
+
+      --- 
+      MemcachedServers: 
+        - 
+          key: GeneralPool
+          value: memcache1.example.com:11211
+        - 
+          key: GeneralPool
+          value: memcache2.example.com:11211
+      NoTempFiles: 1
+      WebServers: 
+        - 192.168.30.1
+        - 192.168.30.1
+      rules: 
+        - 
+          type: merge
+          from: common.target.yaml
+
+  RULES
+    Rules define the complex behavior of targets.
+
+    There are 3 types of rules: merge, init and inherit.
+
+    The init rule simply tells the processor that the merge hash needs to be
+    initilized.
+
+    The merge rule tells the processor that it needs to merge target x and y
+    before it can absorb the values.
+
+    The inherit rule is for user.yaml files and tells the processor that its
+    rules override everything else.
+
+OVERIDING TARGETS
+    In order to overide a target's config you must touch a user.yaml file.
+
+    The user.yaml file MUST contain the following rule:
+
+      rules: 
+        - 
+          type: inherit
+
+    For all intensive purposes a user.yaml file is exactly like a
+    target.yaml file in all other respects.
+
+SUBROUTINES / METHODS
+  files
+  new
+  parse
+  parse_meta
+  generate
+  add_file
+  find_file
+AUTHOR
+    Nick Gerakines, "<nick at socklabs.com>"
+
+BUGS
+    Please report any bugs or feature requests to "bug-Config-Builder at
+    rt.cpan.org", or through the web interface at
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Config-Builder>. I will
+    be notified, and then you'll automatically be notified of progress on
+    your bug as I make changes.
+
+SUPPORT
+    You can find documentation for this module with the perldoc command.
+
+        perldoc Config::Builder
+
+    You can also look for information at:
+
+    * AnnoCPAN: Annotated CPAN documentation
+        <http://annocpan.org/dist/Config-Builder>
+
+    * CPAN Ratings
+        <http://cpanratings.perl.org/d/Config-Builder>
+
+    * RT: CPAN's request tracker
+        <http://rt.cpan.org/NoAuth/Bugs.html?Dist=Config-Builder>
+
+    * Search CPAN
+        <http://search.cpan.org/dist/Config-Builder>
+
+COPYRIGHT & LICENSE
+    Copyright 2006 Nick Gerakines, all rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+

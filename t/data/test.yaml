@@ -1,0 +1,9 @@
+--- 
+typepad: 
+  portal: 
+    - 
+      domain: www.typepad.com
+      name: us
+    - 
+      domain: www.typepad.fr
+      name: fr

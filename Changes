@@ -1,0 +1,11 @@
+Revision history for Config::Builder
+
+0.01	2006-03-28
+		- First release
+
+0.02	2006-03-30
+		- minor bug fixes
+		- overhaul of test suite
+
+0.03	2006-03-31
+		- cleaned and prepared for cpan release

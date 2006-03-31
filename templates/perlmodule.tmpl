@@ -1,0 +1,17 @@
+
+package ${packagename};
+
+use strict;
+use warnings;
+
+my %config = (
+{
+	my $blist = '';
+	foreach $i (@configkeys) {
+		$blist .= qq{	'$i' => 1,\n};
+	}    
+	$blist;
+}
+);
+
+1;

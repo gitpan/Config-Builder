@@ -1,0 +1,7 @@
+--- 
+firstname: testy
+lastname: mctester
+rules: 
+  - 
+    from: test_c
+    type: merge

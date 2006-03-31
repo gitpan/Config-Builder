@@ -1,0 +1,10 @@
+--- 
+terms: 
+  username: 
+    type: SCALAR
+  firstname: 
+    type: SCALAR
+  lastname: 
+    type: SCALAR
+  email: 
+    type: HASH

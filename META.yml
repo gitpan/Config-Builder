@@ -1,0 +1,8 @@
+--- #YAML:1.0
+name: Config-Builder
+version: 0.03
+author:
+  - Nick Gerakines <nick@socklabs.com>
+abstract: A configuration builder
+license: perl
+generated_by: Module::Build version 0.2612, without YAML.pm

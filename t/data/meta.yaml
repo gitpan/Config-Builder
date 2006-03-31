@@ -1,0 +1,18 @@
+--- 
+default_target: test_a
+flags: 
+  - strict
+  - warnings
+output: 
+  file: t/data/output.txt
+  spec: simple.tmpl
+  type: yaml
+user: t/data/user.yaml
+targets: 
+  - test_a.target.yaml
+  - test_b.target.yaml
+  - test_c.target.yaml
+  - test_d.target.yaml
+terms: t/data/terms.yaml
+type: config
+version: 1.0

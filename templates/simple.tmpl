@@ -1,0 +1,24 @@
+{
+	my $blist = '';
+	foreach my $i (@configkeys) {
+		my $var = $vars{$i};
+		if ($var->{'type'} eq 'SCALAR') {
+			$OUT .= "$i $var->{'value'}\n";
+		}
+		if ($var->{'type'} eq 'ARRAY') {
+			foreach my $j ( @{ $var->{'value'} } ) {
+				$OUT .= "($vartype) - $i = $j\n";
+			}
+		}
+		if ($var->{'type'} eq 'HASH') {
+			foreach my $j ( @{ $var->{'value'} } ) {
+				$OUT .= $i.' '.$j->{'key'}.'='.$j->{'value'}."\n";
+			}
+		}
+		if ($var->{'type'} eq 'HASHARRAY') {
+			foreach my $j ( @{ $var->{'value'} } ) {
+				$OUT .= $i.' '.$j->{'key'}.'='.$j->{'value'}."\n";
+			}
+		}
+	}
+}

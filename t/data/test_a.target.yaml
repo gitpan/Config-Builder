@@ -1,0 +1,16 @@
+--- 
+username: testy
+email: 
+  - 
+    key: home
+    value: testy@testy.name
+  - 
+    key: work
+    value: testy@work.net
+  - 
+    key: other
+    value: testy@gmail.com
+rules: 
+  - 
+    from: test_b
+    type: merge
